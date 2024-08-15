@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { FaCameraRetro } from "react-icons/fa";
 import { GiNotebook } from "react-icons/gi";
 import { SlNote } from "react-icons/sl";
+import { useNavigate } from "react-router-dom";
+import { Context } from "../../App";
 
 const skillsData = [
   {
@@ -32,7 +34,15 @@ const skillsData = [
     aosDelay: "1000",
   },
 ];
+
 const Services = () => {
+  const { isAuthenticated } = useContext(Context);
+  const navigate = useNavigate();
+  useEffect(()=>{
+    if (!isAuthenticated) {
+      navigate("/login"); 
+      }
+  },[])
   return (
     <>
       <span id="about"></span>

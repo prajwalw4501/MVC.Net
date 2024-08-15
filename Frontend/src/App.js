@@ -17,7 +17,6 @@ import Register from "./Components/Register.js";
 import DisplayEmployee from "./Components/DisplayEmployee.js";
 import EditEmployee from "./Components/EditEmployee.js";
 import EmployeeBooking from "./Components/Testimonial/EmployeBooking.js";
-import Navbar from "./Components/Navbar/Navbar.jsx";
 import Rating from "./Components/Rating.js";
 
 
@@ -33,6 +32,8 @@ function App() {
   const [user, setUser] = useState({});
   const[selectedemployee,setSelectedemployee]=useState([]);
  const [isLoading,setIsLoading]=useState(false);
+
+ 
   useEffect(()=>{
 const authenticate = sessionStorage.getItem("isAuthenticated");
 const peruser=JSON.parse(sessionStorage.getItem("user"));
@@ -62,10 +63,10 @@ setIsLoading(true);
       <ScrollRestoration />
 
       {!isHomePage && !isAuthPage && <Header />}
-      {/* {!isHomePage && !isAuthPage && <Navbar />} */}
+
       <Outlet />
       {!isHomePage && !isAuthPage && <Footer />}
-      {/* {!isHomePage && !isAuthPage && <Sidebar />} */}
+
     </Context.Provider>
   );
 }

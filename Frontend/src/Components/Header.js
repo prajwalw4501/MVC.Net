@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../App";
@@ -29,32 +29,74 @@ export const Header = () => {
 
   const renderNavLinks = () => (
     <>
-      {/* {user.role === "ROLE_OWNER" && ( */}
-      {(
+      {user.role === "ROLE_OWNER" && (
         <>
-          <NavLink to="/register">Add Employee</NavLink>
-          <NavLink to="/display">Manage Employee</NavLink>
+          <NavLink
+            to="/register"
+            className="text-white font-medium text-lg px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:bg-purple-700 hover:text-purple-200 hover:-translate-y-1 hover:scale-110"
+            activeClassName="bg-purple-800 text-purple-300"
+          >
+            Add Employee
+          </NavLink>
+          <NavLink
+            to="/display"
+            className="text-white font-medium text-lg px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:bg-purple-700 hover:text-purple-200 hover:-translate-y-1 hover:scale-110"
+            activeClassName="bg-purple-800 text-purple-300"
+          >
+            Manage Employee
+          </NavLink>
         </>
       )}
-      {/* {user.role === "ROLE_USER" && ( */}
-      {(
+      {user.role === "ROLE_USER" && (
         <>
-          <NavLink to="/home">Home</NavLink>
-          <NavLink to="/contact">Contact Us</NavLink>
-          <NavLink to="/services">Services</NavLink>
-          <NavLink to="/booking">Bookings</NavLink>
+          <NavLink
+            to="/home"
+            className="text-white font-medium text-lg px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:bg-blue-700 hover:text-blue-200 hover:-translate-y-1 hover:scale-110"
+            activeClassName="bg-blue-800 text-blue-300"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className="text-white font-medium text-lg px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:bg-blue-700 hover:text-blue-200 hover:-translate-y-1 hover:scale-110"
+            activeClassName="bg-blue-800 text-blue-300"
+          >
+            Contact Us
+          </NavLink>
+          <NavLink
+            to="/services"
+            className="text-white font-medium text-lg px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:bg-blue-700 hover:text-blue-200 hover:-translate-y-1 hover:scale-110"
+            activeClassName="bg-blue-800 text-blue-300"
+          >
+            Services
+          </NavLink>
+          <NavLink
+            to="/booking"
+            className="text-white font-medium text-lg px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:bg-blue-700 hover:text-blue-200 hover:-translate-y-1 hover:scale-110"
+            activeClassName="bg-blue-800 text-blue-300"
+          >
+            Bookings
+          </NavLink>
         </>
       )}
     </>
   );
+  const { isAuthenticated } = useContext(Context);
+  useEffect(()=>{
+    if (!isAuthenticated) {
+      navigate("/login"); 
+      }
+  },[])
 
   return (
     <header className="relative z-20 shadow-md w-full h-16 bg-white dark:bg-gray-800 text-gray-800 dark:text-white">
       <div className="container mx-auto px-4 py-4 md:py-0">
         <div className="flex justify-between items-center">
-          <div className="text-3xl font-bold font-serif text-primary">EaseMyWork</div>
-
-          {/* Desktop Navigation */}
+          <div className="text-3xl font-bold font-serif text-primary">
+            <NavLink to="/home" className="hover:text-primary-hover">
+              EaseMyWork
+            </NavLink>
+          </div>
           <nav className="hidden md:flex items-center gap-8">
             {renderNavLinks()}
             <div className="relative">
@@ -64,8 +106,6 @@ export const Header = () => {
               />
             </div>
           </nav>
-
-          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={toggleMobileMenu}
@@ -75,8 +115,6 @@ export const Header = () => {
             </button>
           </div>
         </div>
-
-        {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <nav className="md:hidden mt-4 flex flex-col gap-4 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg">
             {renderNavLinks()}
